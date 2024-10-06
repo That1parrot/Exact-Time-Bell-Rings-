@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Bell Ring Calculator</title>
+    <style>
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Container for the app */
+.container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Header style */
+h1 {
+    font-size: 1.8em;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Label and select dropdown */
+label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+select {
+    padding: 10px 15px;
+    font-size: 1.1em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+select:focus {
+    background-color: #e9f5ff;
+}
+
+/* Timer display */
+#timer {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Bell button */
+#bellButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none;
+}
+
+#bellButton:hover {
+    background-color: #0056b3;
+}
+
+#bellButton:active {
+    background-color: #004494;
+    transform: scale(0.98);
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    #timer {
+        font-size: 2em;
+    }
+
+    #bellButton {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <h1>School Bell Ring Calculator</h1>
+    
+    <div>
+        <label for="hourSelect">Select Hour:</label>
+        <select id="hourSelect">
+            <option value="1">1st Hour</option>
+            <option value="2">2nd Hour</option>
+            <option value="3">3rd Hour</option>
+            <option value="4">4th Hour</option>
+            <option value="5">5th Hour</option>
+            <option value="6">6th Hour</option>
+        </select>
+    </div>
+
+    <div id="timer">Time until bell: --:--:--</div>
+
+    <button id="bellButton">Bell Just Rang</button>
+
+    <script>
+        const bellButton = document.getElementById('bellButton');
+        const timerDisplay = document.getElementById('timer');
+        const hourSelect = document.getElementById('hourSelect');
+
+        let bellTimes = JSON.parse(localStorage.getItem('bellTimes')) || {};
+
+        function updateTimer() {
+            const selectedHour = hourSelect.value;
+            const bellTimeStr = bellTimes[selectedHour];
+
+            if (bellTimeStr) {
+                const now = new Date();
+                const bellTime = new Date(bellTimeStr);
+
+                // If the bell time is from a previous day, adjust it to the next occurrence
+                if (bellTime < now) {
+                    bellTime.setDate(bellTime.getDate() + 1);
+                    bellTimes[selectedHour] = bellTime.toString();
+                    localStorage.setItem('bellTimes', JSON.stringify(bellTimes));
+                }
+
+                const timeDiff = bellTime - now;
+
+                if (timeDiff > 0) {
+                    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                    const seconds = Math.floor((timeDiff / 1000) % 60);
+
+                    timerDisplay.textContent = `Time until bell: ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    timerDisplay.textContent = 'The bell has rung!';
+                }
+            } else {
+                timerDisplay.textContent = 'Time until bell: --:--:--';
+            }
+        }
+
+        bellButton.addEventListener('click', () => {
+            const now = new Date();
+            const selectedHour = hourSelect.value;
+
+            // Adjust for delay (subtracting 300 milliseconds)
+            now.setMilliseconds(now.getMilliseconds() - 300);
+
+            // Store the bell time as a string
+            bellTimes[selectedHour] = now.toString();
+            localStorage.setItem('bellTimes', JSON.stringify(bellTimes));
+
+            updateTimer();
+        });
+
+        hourSelect.addEventListener('change', updateTimer);
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
