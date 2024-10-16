@@ -1,119 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>School Bell Ring Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Bell Ring Calculator & Dearborn Heights Time</title>
     <style>
-/* Global styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-}
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
 
-/* Container for the app */
-.container {
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 30px;
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-}
+        /* Container for the app */
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
 
-/* Header style */
-h1 {
-    font-size: 1.8em;
-    color: #007bff;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        /* Header style */
+        h1 {
+            font-size: 1.8em;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-/* Label and select dropdown */
-label {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-}
+        /* Label and select dropdown */
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
 
-select {
-    padding: 10px 15px;
-    font-size: 1.1em;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    color: #333;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        select {
+            padding: 10px 15px;
+            font-size: 1.1em;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-select:focus {
-    background-color: #e9f5ff;
-}
+        select:focus {
+            background-color: #e9f5ff;
+        }
 
-/* Timer display */
-#timer {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 30px;
-}
+        /* Timer display */
+        #timer {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
 
-/* Bell button */
-#bellButton {
-    background-color: #007bff;
-    color: #fff;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    outline: none;
-}
+        /* Bell button */
+        #bellButton {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+        }
 
-#bellButton:hover {
-    background-color: #0056b3;
-}
+        #bellButton:hover {
+            background-color: #0056b3;
+        }
 
-#bellButton:active {
-    background-color: #004494;
-    transform: scale(0.98);
-}
+        #bellButton:active {
+            background-color: #004494;
+            transform: scale(0.98);
+        }
 
-/* Responsiveness */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5em;
-    }
-    
-    #timer {
-        font-size: 2em;
-    }
+        /* Input time field */
+        #inputTimeField {
+            margin-bottom: 20px;
+        }
 
-    #bellButton {
-        padding: 12px 25px;
-        font-size: 1.1em;
-    }
-}
+        #inputTimeField label {
+            display: block;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
 
+        #inputTimeField input {
+            padding: 10px;
+            font-size: 1.1em;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Exact Time Display */
+        #exactTime {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        /* Clicked Time Display */
+        #clickedTime {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            #timer {
+                font-size: 2em;
+            }
+
+            #bellButton {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>School Bell Ring Calculator</h1>
+    <h1>School Bell Ring Calculator & Dearborn Heights Time</h1>
+    
+    <div id="exactTime">Current Time: --:--:--</div>
     
     <div>
         <label for="hourSelect">Select Hour:</label>
@@ -127,18 +170,30 @@ select:focus {
         </select>
     </div>
 
+    <div id="inputTimeField">
+        <label for="bellTimeInput">Set Bell Time (HH:MM:SS AM/PM):</label>
+        <input type="text" id="bellTimeInput" placeholder="e.g., 03:30:00 PM">
+    </div>
+
     <div id="timer">Time until bell: --:--:--</div>
 
     <button id="bellButton">Bell Just Rang</button>
+
+    <div id="clickedTime">Clicked Time: --:--:--</div>
 
     <script>
         const bellButton = document.getElementById('bellButton');
         const timerDisplay = document.getElementById('timer');
         const hourSelect = document.getElementById('hourSelect');
+        const bellTimeInput = document.getElementById('bellTimeInput');
+        const exactTimeDisplay = document.getElementById('exactTime');
+        const clickedTimeDisplay = document.getElementById('clickedTime');
 
         let bellTimes = JSON.parse(localStorage.getItem('bellTimes')) || {};
+        let clickedTimes = JSON.parse(localStorage.getItem('clickedTimes')) || {};
 
         function updateTimer() {
+            console.log('Updating timer...');
             const selectedHour = hourSelect.value;
             const bellTimeStr = bellTimes[selectedHour];
 
@@ -146,11 +201,12 @@ select:focus {
                 const now = new Date();
                 const bellTime = new Date(bellTimeStr);
 
-                // If the bell time is from a previous day, adjust it to the next occurrence
+                // Adjust bell time to the next occurrence if it's in the past
                 if (bellTime < now) {
                     bellTime.setDate(bellTime.getDate() + 1);
-                    bellTimes[selectedHour] = bellTime.toString();
+                    bellTimes[selectedHour] = bellTime.toISOString();
                     localStorage.setItem('bellTimes', JSON.stringify(bellTimes));
+                    console.log('Bell time adjusted to next occurrence:', bellTime);
                 }
 
                 const timeDiff = bellTime - now;
@@ -161,23 +217,95 @@ select:focus {
                     const seconds = Math.floor((timeDiff / 1000) % 60);
 
                     timerDisplay.textContent = `Time until bell: ${hours}h ${minutes}m ${seconds}s`;
+                    timerDisplay.style.color = "#333";
                 } else {
                     timerDisplay.textContent = 'The bell has rung!';
+                    timerDisplay.style.color = "red";
                 }
             } else {
                 timerDisplay.textContent = 'Time until bell: --:--:--';
+                timerDisplay.style.color = "#333";
             }
         }
 
+        async function fetchExactTime() {
+            console.log('Fetching exact time...');
+            try {
+                const response = await fetch('http://worldtimeapi.org/api/timezone/America/Detroit');
+                const data = await response.json();
+                console.log('Exact time fetched:', data.datetime);
+                return new Date(data.datetime);
+            } catch (error) {
+                console.error('Error fetching exact time:', error);
+                return new Date();
+            }
+        }
+
+        function updateExactTime() {
+            fetchExactTime().then((now) => {
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const displayHours = hours % 12 || 12;
+                exactTimeDisplay.textContent = `Current Time: ${displayHours}:${minutes}:${seconds} ${ampm}`;
+            });
+        }
+
         bellButton.addEventListener('click', () => {
-            const now = new Date();
+            fetchExactTime().then((now) => {
+                const selectedHour = hourSelect.value;
+
+                // Adjust for delay (subtracting 300 milliseconds)
+                now.setMilliseconds(now.getMilliseconds() - 300);
+
+                // Store the bell time as ISO string for consistency
+                bellTimes[selectedHour] = now.toISOString();
+                localStorage.setItem('bellTimes', JSON.stringify(bellTimes));
+
+                // Store the clicked time including milliseconds
+                clickedTimes[selectedHour] = now.toISOString();
+                localStorage.setItem('clickedTimes', JSON.stringify(clickedTimes));
+
+                // Display the clicked time including milliseconds
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const displayHours = hours % 12 || 12;
+                clickedTimeDisplay.textContent = `Clicked Time: ${displayHours}:${minutes}:${seconds} ${milliseconds}ms ${ampm}`;
+
+                // Pause for 5 seconds and change color to red
+                timerDisplay.style.color = "red";
+                setTimeout(() => {
+                    timerDisplay.style.color = "#333";
+                    updateTimer();
+                }, 5000);
+            });
+        });
+
+        bellTimeInput.addEventListener('change', () => {
             const selectedHour = hourSelect.value;
+            const bellTimeValue = bellTimeInput.value;
+            const now = new Date();
 
-            // Adjust for delay (subtracting 300 milliseconds)
-            now.setMilliseconds(now.getMilliseconds() - 300);
+            // Parse input time and set bell time
+            const [time, modifier] = bellTimeValue.split(' ');
+            let [hours, minutes, seconds] = time.split(':');
+            hours = parseInt(hours);
+            minutes = parseInt(minutes);
+            seconds = parseInt(seconds);
 
-            // Store the bell time as a string
-            bellTimes[selectedHour] = now.toString();
+            if (modifier === 'PM' && hours < 12) {
+                hours += 12;
+            }
+            if (modifier === 'AM' && hours === 12) {
+                hours = 0;
+            }
+
+            const bellTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
+            bellTimes[selectedHour] = bellTime.toISOString();
             localStorage.setItem('bellTimes', JSON.stringify(bellTimes));
 
             updateTimer();
@@ -185,7 +313,9 @@ select:focus {
 
         hourSelect.addEventListener('change', updateTimer);
         setInterval(updateTimer, 1000);
+        setInterval(updateExactTime, 1000);
         updateTimer();
+        updateExactTime();
     </script>
 </body>
 </html>
